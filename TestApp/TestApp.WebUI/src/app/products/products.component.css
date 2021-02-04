@@ -1,0 +1,27 @@
+.card{
+    padding: 10%;
+    margin: 5%;
+    border: 1%;
+    border-color: gray;
+}
+
+.filters{
+    align-self:center;
+}
+
+.startDate{
+    width: 30%;
+    padding: 1%;
+}
+
+.lastDate{
+    width: 30%;
+    padding: 1%;
+    margin: 1%;
+}
+
+.search{
+    width: 30%;
+    padding: 1%;
+    margin: 1%;
+}
