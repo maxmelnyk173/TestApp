@@ -1,0 +1,23 @@
+<div role="document">
+    <div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Delete Product</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="control-label">Are you sure to delete following product?</label>
+          <div class="col-sm-10">
+            <h3>{{productName}}</h3>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label"></label>
+          <div class="col-sm-10">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="deletePost()">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

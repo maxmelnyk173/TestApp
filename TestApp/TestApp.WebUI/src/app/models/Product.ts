@@ -1,12 +1,13 @@
 import {Category} from './Category';
 
 export interface Product{
-    ProductId : string;
-    ProductName: string;
-    Size: number;
-    CompanyName: string;
-    URL: string;
-    VendorContact: string;
-    ReleasedOn: string;
-    Categories: Array<Category>;
+    productId : string;
+    productName: string;
+    version: string;
+    size: number;
+    companyName: string;
+    url: string;
+    vendorContact: string;
+    releasedOn: Date;
+    categories: Array<Category>;
 }

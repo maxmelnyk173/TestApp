@@ -1,0 +1,42 @@
+<div role="document">
+    <div>
+        <form class="form-horizontal" id="add-form" [formGroup]="createProductForm" (ngSubmit)="onPostFormSubmit()">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add New Product</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="ProductName" placeholder="Product name" formControlName="productName">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="Version" placeholder="Version" formControlName="version">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="Size" placeholder="Size" formControlName="size">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="CompanyName" placeholder="Company Name" formControlName="companyName">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="URL" placeholder="URL" formControlName="url">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="Vendor" placeholder="Vendor" formControlName="vendorContact">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-control" id="ReleasedOn" placeholder="Released On" formControlName="releasedOn">
+                </div>
+                <div class="form-group">
+                    <select class="form-select form-select-sm" multiple formControlName ="categoryVms" aria-label=".form-select-sm example">
+                        <option *ngFor="let category of categories" [value]="category">{{category.categoryName}}</option>
+                    </select>
+                </div>
+                <div class="formButtons">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>

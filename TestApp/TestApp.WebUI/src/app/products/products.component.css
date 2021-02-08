@@ -7,11 +7,13 @@
 
 .filters{
     align-self:center;
+    align-content: center;
 }
 
 .startDate{
     width: 30%;
     padding: 1%;
+    margin: 1%;
 }
 
 .lastDate{
@@ -23,5 +25,17 @@
 .search{
     width: 30%;
     padding: 1%;
+    margin: 1%;
+}
+
+.showhidefilters{
+    margin: 1%;
+}
+
+.resetSelectedCategories{
+    margin: 1%;
+}
+
+.resetDates{
     margin: 1%;
 }

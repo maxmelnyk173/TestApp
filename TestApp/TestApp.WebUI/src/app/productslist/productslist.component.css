@@ -1,11 +1,16 @@
-.form-group{
-    padding: 1%;
-}
-
 .addButton{
     margin: 1%;
 }
 
-.formButton{
-    margin: 1%;
-}
+table {
+    width: 100%;
+    margin: 10px auto;
+    table-layout: auto;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+    border: hidden 1px;
+    text-align: center;
+  }

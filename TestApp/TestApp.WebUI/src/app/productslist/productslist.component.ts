@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { Category } from '../models/Category';
 import { Product } from '../models/Product';
 import { ProductService } from '../services/product.service';
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { AddProductComponent } from '../shared/add-product/add-product.component';
+import { UpdateProductComponent } from '../shared/update-product/update-product.component';
+import { DeletePostComponent } from '../shared/delete-post/delete-post.component';
 
 @Component({
   selector: 'app-productslist',
@@ -15,18 +19,9 @@ export class ProductslistComponent implements OnInit {
   products: Array<Product>;
   categories: Array<Category>;
   productForm: Product;
+  bsModalRef: BsModalRef;
 
-  constructor(private fb: FormBuilder, private productService: ProductService) { 
-    this.createProductForm = this.fb.group({
-      ProductName : [''],
-      Version : [''],
-      Size : [''],
-      CompanyName : [''],
-      URL : [''],
-      VendorContact : [''],
-      ReleasedOn : [''],
-      CategoryVms: ['']
-    })
+  constructor(private productService: ProductService, private bsModalService: BsModalService) { 
   }
 
   ngOnInit(): void {
@@ -35,30 +30,45 @@ export class ProductslistComponent implements OnInit {
   }
 
   fetchProducts(){
-    this.productService.getAll().subscribe(products => {
+    this.productService.getAllProducts().subscribe(products => {
       this.products = products;
-      console.log(this.products);
     });
   }
 
   fetchCategories(){
     this.productService.getCategories().subscribe(categories => {
       this.categories = categories;
-      console.log(this.categories);
     });
   }
 
-  createProduct(){
-    this.productService.create(this.createProductForm.value).subscribe(res => {
-      this.fetchProducts();
-      this.fetchCategories();
-    })
+  addNewProduct(){
+    this.bsModalRef = this.bsModalService.show(AddProductComponent);
+    this.bsModalRef.content.event.subscribe(result => {
+      if (result == 'OK') {
+        this.fetchProducts();
+      }
+    });
   }
 
-  deleteProduct(id){
-    this.productService.delete(id).subscribe(res => {
-      this.fetchProducts();
-      this.fetchCategories();
-    })
+  deletePost(productId: string, productName: string) {
+    this.bsModalRef = this.bsModalService.show(DeletePostComponent);
+    this.bsModalRef.content.productId = productId;
+    this.bsModalRef.content.productName = productName;
+    this.bsModalRef.content.event.subscribe(result => {
+      console.log("deleted", result);
+      if (result == 'OK') {
+        this.fetchProducts();
+      }
+    });
+  }
+  
+  updateProduct(id) {
+    this.productService.getProductGuid(id);
+    this.bsModalRef = this.bsModalService.show(UpdateProductComponent);
+    this.bsModalRef.content.event.subscribe(result => {
+      if (result == 'OK') {
+        this.fetchProducts();
+      }
+    });
   }
 }

@@ -17,29 +17,29 @@ namespace TestTaskApp.Application.Products.Queries.GetProductById
             _context = context;
         }
 
-        public Task<ProductVm> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ProductVm> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _context.Products
-                         .Include(c => c.Categories)
-                         .Where(p => p.ProductId == request.ProductId)
-                         .Select(product => new ProductVm
-                         {
-                             ProductId = product.ProductId,
-                             ProductName = product.ProductName,
-                             Version = product.Version,
-                             Size = product.Size,
-                             CompanyName = product.CompanyName,
-                             URL = product.URL,
-                             VendorContact = product.VendorContact,
-                             ReleasedOn = product.ReleasedOn,
-                             Categories = product.Categories
-                                                .Select(category => new ProductCategoryVm
-                                                {
-                                                    CategoryId = category.CategoryId,
-                                                    CategoryName = category.CategoryName
-                                                }).ToList()
+            var result = await _context.Products
+                             .Include(c => c.Categories)
+                             .Where(p => p.ProductId == request.ProductId)
+                             .Select(product => new ProductVm
+                             {
+                                 ProductId = product.ProductId,
+                                 ProductName = product.ProductName,
+                                 Version = product.Version,
+                                 Size = product.Size,
+                                 CompanyName = product.CompanyName,
+                                 URL = product.URL,
+                                 VendorContact = product.VendorContact,
+                                 ReleasedOn = product.ReleasedOn,
+                                 Categories = product.Categories
+                                                    .Select(category => new ProductCategoryVm
+                                                    {
+                                                        CategoryId = category.CategoryId,
+                                                        CategoryName = category.CategoryName
+                                                    }).ToList()
 
-                         }).FirstOrDefaultAsync(cancellationToken);
+                             }).FirstOrDefaultAsync(cancellationToken);
 
             return result;
         }

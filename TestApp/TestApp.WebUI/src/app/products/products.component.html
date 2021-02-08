@@ -1,20 +1,32 @@
 <div>
-    <div class="filters">
-        <input class ="startDate" type ="date">
-        <input class ="lastDate" type ="date">
-        <input class ="search" type="search" placeholder="Enter text to search">
+    <button (click)="toggleShow()" type="button" class="showhidefilters btn btn-primary" >Show/Hide Filters</button>
+
+    <div *ngIf="isShown" class="row container-fluid"  id="divshow">
+        <div class="filterButtons">
+            <button type="button" (click)="resetDates()" class="resetDates btn btn-danger">Refresh dates</button>
+            <button type="button" (click)="resetSelectedCategories()" class="resetSelectedCategories btn btn-danger">Refresh categories</button>
+        </div>
+        <div class="filters">
+            <input class ="startDate" type ="date" [(ngModel)]='startDate'>
+            <input class ="lastDate" type ="date" [(ngModel)]='lastDate'>
+            <input class ="search" type="search" [(ngModel)]='searchName' placeholder="Enter text to search">
+            <select class="form-select form-select-sm" multiple [(ngModel)]="categoriesFilter">
+                <option *ngFor="let category of categories" [value]="category">{{category.categoryName}}</option>
+            </select>
+        </div>
     </div>
-    <div class="container-fluid">
+    <div class="body container-fluid">
         <div class="row">
-            <div class="col-lg-3" *ngFor="let product of products">
+            <div class="col-lg-3" *ngFor = "let product of products | textfilter : searchName | dateRange : startDate : lastDate | categoryfilter : categoriesFilter">
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                       <h5 class="card-title">{{product.productName}}</h5>
                       <h6 class="card-subtitle mb-2 text-muted">Company Name: {{product.companyName}}</h6>
                       <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Version: {{product.version}}</li>
                         <li class="list-group-item">Size: {{product.size}}</li>
                         <li class="list-group-item">Vendor: {{product.vendorContact}}</li>
-                        <li class="list-group-item">Released Date: {{product.releasedOn}}</li>
+                        <li class="list-group-item">Released Date: {{product.releasedOn | date: shortDate}}</li>
                         <li class="list-group-item" *ngFor="let category of product.categories">Category: {{category.categoryName}}</li>
                       </ul>
                     </div>
